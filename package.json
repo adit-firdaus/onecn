@@ -1,5 +1,5 @@
 {
-  "name": "onecn",
+  "name": "@adit_firdaus/onecn",
   "version": "0.1.0",
   "description": "All shadcn/ui components in one package. Easy install for new projects.",
   "type": "module",
