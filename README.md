@@ -2,6 +2,9 @@
 
 All [shadcn/ui](https://ui.shadcn.com) components packed into a single, easy-to-install package.
 
+[![CI](https://github.com/aditfirdaus/onecn/actions/workflows/ci.yml/badge.svg)](https://github.com/aditfirdaus/onecn/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/@adit_firdaus%2Fonecn.svg)](https://www.npmjs.com/package/@adit_firdaus/onecn)
+
 ## Why?
 
 Instead of installing shadcn components one-by-one via the CLI, `@adit_firdaus/onecn` gives you everything in one shot:
@@ -87,21 +90,54 @@ module.exports = {
 
 ## Usage
 
-Import any component directly from `@adit_firdaus/onecn`:
+### Barrel import (all components)
 
 ```tsx
 import { Button, Card, Dialog, Input, Label } from "@adit_firdaus/onecn";
 ```
 
-## Included Components
+### Subpath import (tree-shaking friendly)
 
-- **Layout**: AspectRatio, Card, Resizable, ScrollArea, Separator, Sheet, Skeleton
-- **Forms**: Button, Calendar, Checkbox, Command, Form, Input, InputOTP, Label, RadioGroup, Select, Slider, Switch, Textarea, Toggle, ToggleGroup
-- **Overlays**: AlertDialog, Dialog, Drawer, DropdownMenu, ContextMenu, HoverCard, Menubar, NavigationMenu, Popover, Sheet, Tooltip
-- **Data Display**: Avatar, Badge, Breadcrumb, Carousel, Chart, Pagination, Progress, Table
-- **Feedback**: Alert, Sonner, Toast, Toaster
-- **Navigation**: Accordion, Collapsible, Tabs
-- **Utilities**: cn (from `tailwind-merge` + `clsx`)
+For better bundler performance and to avoid resolving heavy transitive dependencies when you only need one component:
+
+```tsx
+import { Button } from "@adit_firdaus/onecn/button";
+import { Dialog } from "@adit_firdaus/onecn/dialog";
+import { cn } from "@adit_firdaus/onecn/utils";
+import { useToast } from "@adit_firdaus/onecn/use-toast";
+```
+
+### Quick example
+
+```tsx
+import { Button } from "@adit_firdaus/onecn/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@adit_firdaus/onecn/card";
+
+export function ProfileCard() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Profile</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Button>Save</Button>
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## Included Components (47)
+
+| Category | Components |
+|----------|-----------|
+| **Layout** | AspectRatio, Card, Resizable, ScrollArea, Separator, Sheet, Skeleton |
+| **Forms** | Button, Calendar, Checkbox, Command, Form, Input, InputOTP, Label, RadioGroup, Select, Slider, Switch, Textarea, Toggle, ToggleGroup |
+| **Overlays** | AlertDialog, Dialog, Drawer, DropdownMenu, ContextMenu, HoverCard, Menubar, NavigationMenu, Popover, Sheet, Tooltip |
+| **Data Display** | Avatar, Badge, Breadcrumb, Carousel, Chart, Pagination, Progress, Table |
+| **Feedback** | Alert, Sonner, Toast, Toaster |
+| **Navigation** | Accordion, Collapsible, Tabs |
+| **Utilities** | `cn` (from `tailwind-merge` + `clsx`) |
 
 ## Requirements
 
@@ -112,9 +148,24 @@ import { Button, Card, Dialog, Input, Label } from "@adit_firdaus/onecn";
 ## Development
 
 ```bash
-cd projects/node/onecn
+# Install dependencies
 bun install
+
+# Run tests
+bun test
+
+# Run linter
+bun run lint
+
+# Build package
 bun run build
+
+# Watch mode build
+bun run dev
+
+# Sync components with upstream shadcn/ui
+bun run scripts/sync-shadcn.ts
+bun run scripts/sync-shadcn.ts button
 ```
 
 ## License

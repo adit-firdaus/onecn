@@ -1,0 +1,16 @@
+commit-msg:
+  commands:
+    lint-commit-msg:
+      run: bunx biome lint --fix --stdin-file-path=COMMIT_EDITMSG < {1}
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{ts,tsx,js,jsx,json}"
+      run: bunx biome check --write --no-errors-on-unmatched {staged_files} && git add {staged_files}
+    test:
+      run: bun test
+pre-push:
+  commands:
+    build:
+      run: bun run build
