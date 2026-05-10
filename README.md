@@ -1,13 +1,13 @@
-# onecn
+# @adit_firdaus/onecn
 
 All [shadcn/ui](https://ui.shadcn.com) components packed into a single, easy-to-install package.
 
 ## Why?
 
-Instead of installing shadcn components one-by-one via the CLI, `onecn` gives you everything in one shot:
+Instead of installing shadcn components one-by-one via the CLI, `@adit_firdaus/onecn` gives you everything in one shot:
 
 ```bash
-bun add onecn
+bun add @adit_firdaus/onecn
 ```
 
 ## Installation
@@ -15,7 +15,7 @@ bun add onecn
 ### 1. Install the package
 
 ```bash
-bun add onecn
+bun add @adit_firdaus/onecn
 ```
 
 ### 2. Import the styles
@@ -23,10 +23,10 @@ bun add onecn
 Add this to your main CSS file (e.g. `globals.css`):
 
 ```css
-@import "onecn/styles";
+@import "@adit_firdaus/onecn/styles";
 ```
 
-Or copy the CSS variables from `node_modules/onecn/dist/index.css` into your own stylesheet.
+Or copy the CSS variables from `node_modules/@adit_firdaus/onecn/dist/index.css` into your own stylesheet.
 
 ### 3. Configure Tailwind
 
@@ -36,7 +36,7 @@ Make sure your `tailwind.config.js` includes the package in its content paths:
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/onecn/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@adit_firdaus/onecn/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -87,20 +87,10 @@ module.exports = {
 
 ## Usage
 
-Import any component directly from `onecn`:
+Import any component directly from `@adit_firdaus/onecn`:
 
 ```tsx
-import { Button, Card, Dialog, Input, Label } from "onecn";
-
-export default function Page() {
-  return (
-    <Card>
-      <Label>Name</Label>
-      <Input placeholder="Type here..." />
-      <Button>Submit</Button>
-    </Card>
-  );
-}
+import { Button, Card, Dialog, Input, Label } from "@adit_firdaus/onecn";
 ```
 
 ## Included Components
