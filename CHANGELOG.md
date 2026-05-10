@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-10
+
+### Added
+- `ConfigProvider` and `useConfig` for global component default overrides
+- `OneCNProvider` — single wrapper for next-themes + toast + config
+- Re-export `useTheme` from next-themes
+- Helper components: `EmptyState`, `ConfirmDialog`, `PageHeader`, `FormField`, `CopyButton`, `SkeletonCard`, `StatusBadge`, `ThemeToggle`
+- Utility hooks: `useMediaQuery`, `useClipboard`, `useDisclosure`, `usePrevious`
+- `mergeProps` utility in `lib/utils`
+- Config integration in `Button`, `Input`, `Badge`, `Card`
+
+### Changed
+- Updated `scripts/build-subpaths.ts` to auto-export helpers and hooks
+
 ## [0.2.0] - 2026-05-10
 
 ### Added

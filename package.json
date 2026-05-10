@@ -1,6 +1,6 @@
 {
   "name": "@adit_firdaus/onecn",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "All shadcn/ui components in one package. Easy install for new projects.",
   "type": "module",
   "main": "./dist/index.js",
@@ -199,13 +199,73 @@
       "types": "./dist/components/ui/carousel.d.ts",
       "import": "./dist/components/ui/carousel.js"
     },
-    "./utils": {
-      "types": "./dist/lib/utils.d.ts",
-      "import": "./dist/lib/utils.js"
+    "./confirm-dialog": {
+      "types": "./dist/components/helpers/confirm-dialog.d.ts",
+      "import": "./dist/components/helpers/confirm-dialog.js"
+    },
+    "./skeleton-card": {
+      "types": "./dist/components/helpers/skeleton-card.d.ts",
+      "import": "./dist/components/helpers/skeleton-card.js"
+    },
+    "./copy-button": {
+      "types": "./dist/components/helpers/copy-button.d.ts",
+      "import": "./dist/components/helpers/copy-button.js"
+    },
+    "./empty-state": {
+      "types": "./dist/components/helpers/empty-state.d.ts",
+      "import": "./dist/components/helpers/empty-state.js"
+    },
+    "./form-group": {
+      "types": "./dist/components/helpers/form-group.d.ts",
+      "import": "./dist/components/helpers/form-group.js"
+    },
+    "./status-badge": {
+      "types": "./dist/components/helpers/status-badge.d.ts",
+      "import": "./dist/components/helpers/status-badge.js"
+    },
+    "./page-header": {
+      "types": "./dist/components/helpers/page-header.d.ts",
+      "import": "./dist/components/helpers/page-header.js"
+    },
+    "./theme-toggle": {
+      "types": "./dist/components/helpers/theme-toggle.d.ts",
+      "import": "./dist/components/helpers/theme-toggle.js"
+    },
+    "./use-disclosure": {
+      "types": "./dist/hooks/use-disclosure.d.ts",
+      "import": "./dist/hooks/use-disclosure.js"
+    },
+    "./use-clipboard": {
+      "types": "./dist/hooks/use-clipboard.d.ts",
+      "import": "./dist/hooks/use-clipboard.js"
     },
     "./use-toast": {
       "types": "./dist/hooks/use-toast.d.ts",
       "import": "./dist/hooks/use-toast.js"
+    },
+    "./use-media-query": {
+      "types": "./dist/hooks/use-media-query.d.ts",
+      "import": "./dist/hooks/use-media-query.js"
+    },
+    "./use-previous": {
+      "types": "./dist/hooks/use-previous.d.ts",
+      "import": "./dist/hooks/use-previous.js"
+    },
+    "./use-theme": {
+      "types": "./dist/hooks/use-theme.d.ts",
+      "import": "./dist/hooks/use-theme.js"
+    },
+    "./utils": {
+      "types": "./dist/lib/utils.d.ts",
+      "import": "./dist/lib/utils.js"
+    },
+    "./config": {
+      "types": "./dist/lib/config.d.ts",
+      "import": "./dist/lib/config.js"
+    },
+    "./onecn-provider": {
+      "types": "./dist/components/onecn-provider.d.ts",
+      "import": "./dist/components/onecn-provider.js"
     },
     "./styles": "./dist/index.css",
     "./package.json": "./package.json"

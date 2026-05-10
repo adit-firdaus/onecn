@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import React from "react";
 import { renderToString } from "react-dom/server";
+import { ConfigProvider } from "../../lib/config";
 import { Input } from "./input";
 
 describe("Input", () => {
@@ -25,5 +26,14 @@ describe("Input", () => {
   test("forwards disabled attribute", () => {
     const html = renderToString(<Input disabled />);
     expect(html).toContain("disabled");
+  });
+
+  test("applies config defaults when inside ConfigProvider", () => {
+    const html = renderToString(
+      <ConfigProvider config={{ components: { Input: { className: "config-class" } } }}>
+        <Input />
+      </ConfigProvider>
+    );
+    expect(html).toContain("config-class");
   });
 });

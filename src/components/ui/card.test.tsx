@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import React from "react";
 import { renderToString } from "react-dom/server";
+import { ConfigProvider } from "../../lib/config";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card";
 
 describe("Card", () => {
@@ -62,5 +63,14 @@ describe("Card", () => {
     expect(html).toContain("Card Description");
     expect(html).toContain("Card Body");
     expect(html).toContain("Card Footer");
+  });
+
+  test("applies config defaults when inside ConfigProvider", () => {
+    const html = renderToString(
+      <ConfigProvider config={{ components: { Card: { className: "config-card" } } }}>
+        <Card>Content</Card>
+      </ConfigProvider>
+    );
+    expect(html).toContain("config-card");
   });
 });

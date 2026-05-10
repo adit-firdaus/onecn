@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import React from "react";
 import { renderToString } from "react-dom/server";
+import { ConfigProvider } from "../../lib/config";
 import { Button } from "./button";
 
 describe("Button", () => {
@@ -58,5 +59,34 @@ describe("Button", () => {
   test("forwards ref and custom className", () => {
     const html = renderToString(<Button className="custom-class">Custom</Button>);
     expect(html).toContain("custom-class");
+  });
+
+  test("applies config defaults when inside ConfigProvider", () => {
+    const html = renderToString(
+      <ConfigProvider config={{ components: { Button: { size: "lg" } } }}>
+        <Button>Config</Button>
+      </ConfigProvider>
+    );
+    expect(html).toContain("h-10");
+  });
+
+  test("instance props override config defaults", () => {
+    const html = renderToString(
+      <ConfigProvider config={{ components: { Button: { size: "lg" } } }}>
+        <Button size="sm">Override</Button>
+      </ConfigProvider>
+    );
+    expect(html).toContain("h-8");
+    expect(html).not.toContain("h-10");
+  });
+
+  test("merges className from config and instance", () => {
+    const html = renderToString(
+      <ConfigProvider config={{ components: { Button: { className: "config-class" } } }}>
+        <Button className="instance-class">Merged</Button>
+      </ConfigProvider>
+    );
+    expect(html).toContain("config-class");
+    expect(html).toContain("instance-class");
   });
 });

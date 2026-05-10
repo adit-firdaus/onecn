@@ -1,6 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
+import { useConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const buttonVariants = cva(
@@ -38,9 +39,28 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button";
+    const config = useConfig();
+    const defaults = (config.components?.Button ?? {}) as Partial<ButtonProps>;
+
+    const mergedClassName = cn(defaults.className, className);
+    const mergedVariant = variant ?? defaults.variant;
+    const mergedSize = size ?? defaults.size;
+    const mergedAsChild = asChild ?? defaults.asChild ?? false;
+
+    const Comp = mergedAsChild ? Slot : "button";
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, variant: _v, size: _s, asChild: _a, ...restDefaults } = defaults;
+
     return (
-      <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
+      <Comp
+        className={cn(
+          buttonVariants({ variant: mergedVariant, size: mergedSize, className: mergedClassName })
+        )}
+        ref={ref}
+        {...restDefaults}
+        {...props}
+      />
     );
   }
 );

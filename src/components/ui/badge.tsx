@@ -1,5 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import type * as React from "react";
+import { useConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const badgeVariants = cva(
@@ -26,7 +27,19 @@ export interface BadgeProps
     VariantProps<typeof badgeVariants> {}
 
 function Badge({ className, variant, ...props }: BadgeProps) {
-  return <div className={cn(badgeVariants({ variant }), className)} {...props} />;
+  const config = useConfig();
+  const defaults = (config.components?.Badge ?? {}) as Partial<BadgeProps>;
+
+  const mergedClassName = cn(defaults.className, className);
+  const mergedVariant = variant ?? defaults.variant;
+
+  return (
+    <div
+      className={cn(badgeVariants({ variant: mergedVariant }), mergedClassName)}
+      {...defaults}
+      {...props}
+    />
+  );
 }
 
 export { Badge, badgeVariants };
