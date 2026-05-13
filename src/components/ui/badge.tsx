@@ -1,6 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import type * as React from "react";
-import { useConfig } from "../../lib/config";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const badgeVariants = cva(
@@ -27,16 +27,22 @@ export interface BadgeProps
     VariantProps<typeof badgeVariants> {}
 
 function Badge({ className, variant, ...props }: BadgeProps) {
-  const config = useConfig();
-  const defaults = (config.components?.Badge ?? {}) as Partial<BadgeProps>;
+  const { defaultProps, variantOverrides, baseClassName } = useComponentConfig<BadgeProps>("Badge");
 
-  const mergedClassName = cn(defaults.className, className);
-  const mergedVariant = variant ?? defaults.variant;
+  const mergedVariant = variant ?? defaultProps?.variant ?? "default";
+  const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, variant: _v, ...restDefaults } = defaultProps ?? {};
 
   return (
     <div
-      className={cn(badgeVariants({ variant: mergedVariant }), mergedClassName)}
-      {...defaults}
+      className={cn(
+        badgeVariants({ variant: mergedVariant }),
+        variantOverrides?.[mergedVariant as string],
+        mergedClassName
+      )}
+      {...restDefaults}
       {...props}
     />
   );

@@ -1,6 +1,6 @@
 {
   "name": "@coolaf/onecn",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "All shadcn/ui components in one package. Easy install for new projects.",
   "type": "module",
   "main": "./dist/index.js",
@@ -262,6 +262,10 @@
     "./config": {
       "types": "./dist/lib/config.d.ts",
       "import": "./dist/lib/config.js"
+    },
+    "./presets": {
+      "types": "./dist/lib/presets/index.d.ts",
+      "import": "./dist/lib/presets/index.js"
     },
     "./onecn-provider": {
       "types": "./dist/components/onecn-provider.d.ts",

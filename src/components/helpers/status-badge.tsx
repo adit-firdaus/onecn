@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 import { Badge, type BadgeProps } from "../ui/badge";
 
@@ -30,10 +31,19 @@ export function StatusBadge({
   children,
   ...props
 }: StatusBadgeProps) {
+  const { defaultProps, baseClassName } = useComponentConfig<StatusBadgeProps>("StatusBadge");
+
+  const mergedStatus = status ?? defaultProps?.status ?? "default";
+  const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, status: _s, ...restDefaults } = defaultProps ?? {};
+
   return (
     <Badge
-      variant={statusVariantMap[status]}
-      className={cn(statusClassMap[status], className)}
+      variant={statusVariantMap[mergedStatus]}
+      className={cn(statusClassMap[mergedStatus], mergedClassName)}
+      {...restDefaults}
       {...props}
     >
       {children}

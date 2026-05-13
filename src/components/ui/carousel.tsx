@@ -1,6 +1,7 @@
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import * as React from "react";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 import { Button } from "./button";
 
@@ -39,10 +40,18 @@ const Carousel = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & CarouselProps
 >(({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }, ref) => {
+  const { defaultProps, baseClassName } = useComponentConfig<
+    React.HTMLAttributes<HTMLDivElement> & CarouselProps
+  >("Carousel");
+  const mergedOrientation = orientation ?? defaultProps?.orientation ?? "horizontal";
+  const mergedClassName = cn("relative", baseClassName, defaultProps?.className, className);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, orientation: _o, ...restDefaults } = defaultProps ?? {};
+
   const [carouselRef, api] = useEmblaCarousel(
     {
       ...opts,
-      axis: orientation === "horizontal" ? "x" : "y",
+      axis: mergedOrientation === "horizontal" ? "x" : "y",
     },
     plugins
   );
@@ -97,7 +106,7 @@ const Carousel = React.forwardRef<
         carouselRef,
         api: api,
         opts,
-        orientation: orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+        orientation: mergedOrientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
         scrollPrev,
         scrollNext,
         canScrollPrev,
@@ -107,9 +116,10 @@ const Carousel = React.forwardRef<
       <div
         ref={ref}
         onKeyDownCapture={handleKeyDown}
-        className={cn("relative", className)}
+        className={mergedClassName}
         role="region"
         aria-roledescription="carousel"
+        {...restDefaults}
         {...props}
       >
         {children}
@@ -121,6 +131,11 @@ Carousel.displayName = "Carousel";
 
 const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.HTMLAttributes<HTMLDivElement>>("CarouselContent");
+    const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, ...restDefaults } = defaultProps ?? {};
     const { carouselRef, orientation } = useCarousel();
     return (
       <div ref={carouselRef} className="overflow-hidden">
@@ -129,8 +144,9 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
           className={cn(
             "flex",
             orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-            className
+            mergedClassName
           )}
+          {...restDefaults}
           {...props}
         />
       </div>
@@ -141,6 +157,11 @@ CarouselContent.displayName = "CarouselContent";
 
 const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.HTMLAttributes<HTMLDivElement>>("CarouselItem");
+    const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, ...restDefaults } = defaultProps ?? {};
     const { orientation } = useCarousel();
     return (
       <div
@@ -150,8 +171,9 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         className={cn(
           "min-w-0 shrink-0 grow-0 basis-full",
           orientation === "horizontal" ? "pl-4" : "pt-4",
-          className
+          mergedClassName
         )}
+        {...restDefaults}
         {...props}
       />
     );
@@ -161,21 +183,33 @@ CarouselItem.displayName = "CarouselItem";
 
 const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
   ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.ComponentProps<typeof Button>>("CarouselPrevious");
+    const mergedVariant = variant ?? defaultProps?.variant ?? "outline";
+    const mergedSize = size ?? defaultProps?.size ?? "icon";
+    const mergedClassName = cn(
+      "absolute  h-8 w-8 rounded-full",
+      baseClassName,
+      defaultProps?.className,
+      className
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, variant: _v, size: _s, ...restDefaults } = defaultProps ?? {};
     const { orientation, scrollPrev, canScrollPrev } = useCarousel();
     return (
       <Button
         ref={ref}
-        variant={variant}
-        size={size}
+        variant={mergedVariant}
+        size={mergedSize}
         className={cn(
-          "absolute  h-8 w-8 rounded-full",
           orientation === "horizontal"
             ? "-left-12 top-1/2 -translate-y-1/2"
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
+          mergedClassName
         )}
         disabled={!canScrollPrev}
         onClick={scrollPrev}
+        {...restDefaults}
         {...props}
       >
         <ArrowLeft className="h-4 w-4" />
@@ -188,21 +222,33 @@ CarouselPrevious.displayName = "CarouselPrevious";
 
 const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<typeof Button>>(
   ({ className, variant = "outline", size = "icon", ...props }, ref) => {
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.ComponentProps<typeof Button>>("CarouselNext");
+    const mergedVariant = variant ?? defaultProps?.variant ?? "outline";
+    const mergedSize = size ?? defaultProps?.size ?? "icon";
+    const mergedClassName = cn(
+      "absolute h-8 w-8 rounded-full",
+      baseClassName,
+      defaultProps?.className,
+      className
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, variant: _v, size: _s, ...restDefaults } = defaultProps ?? {};
     const { orientation, scrollNext, canScrollNext } = useCarousel();
     return (
       <Button
         ref={ref}
-        variant={variant}
-        size={size}
+        variant={mergedVariant}
+        size={mergedSize}
         className={cn(
-          "absolute h-8 w-8 rounded-full",
           orientation === "horizontal"
             ? "-right-12 top-1/2 -translate-y-1/2"
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-          className
+          mergedClassName
         )}
         disabled={!canScrollNext}
         onClick={scrollNext}
+        {...restDefaults}
         {...props}
       >
         <ArrowRight className="h-4 w-4" />

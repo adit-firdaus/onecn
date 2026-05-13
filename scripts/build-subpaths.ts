@@ -54,6 +54,10 @@ const otherExports: Record<string, { types?: string; import?: string }> = {
     types: "./dist/lib/config.d.ts",
     import: "./dist/lib/config.js",
   },
+  "./presets": {
+    types: "./dist/lib/presets/index.d.ts",
+    import: "./dist/lib/presets/index.js",
+  },
   "./onecn-provider": {
     types: "./dist/components/onecn-provider.d.ts",
     import: "./dist/components/onecn-provider.js",

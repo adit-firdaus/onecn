@@ -45,6 +45,10 @@ const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "in-expo": "cubic-bezier(0.7, 0, 0.84, 0)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

@@ -127,7 +127,160 @@ export function ProfileCard() {
 }
 ```
 
-## Included Components (47)
+## Customization
+
+`@coolaf/onecn` is designed to be highly customizable at both the global and component level.
+
+### `OneCNProvider`
+
+Wrap your app with `OneCNProvider` to enable global configuration:
+
+```tsx
+import { OneCNProvider } from "@coolaf/onecn/onecn-provider";
+
+function App() {
+  return (
+    <OneCNProvider>
+      <YourApp />
+    </OneCNProvider>
+  );
+}
+```
+
+### Presets
+
+Apply a built-in design preset to instantly change the look and feel:
+
+```tsx
+import { OneCNProvider } from "@coolaf/onecn/onecn-provider";
+
+function App() {
+  return (
+    <OneCNProvider config={{ preset: "modern" }}>
+      <YourApp />
+    </OneCNProvider>
+  );
+}
+```
+
+**Available presets:**
+
+| Preset | Description |
+|--------|-------------|
+| `default` | Standard shadcn/ui baseline |
+| `modern` | Larger radius, softer shadows, generous padding |
+| `brutalist` | Sharp corners, heavy borders, high contrast |
+| `minimal` | No card borders, subtle backgrounds, airy spacing |
+| `corporate` | Blue-toned primary, compact sizing, formal |
+| `neon` | Dark base, saturated neon accents, glow effects |
+| `retro` | Warm beige/paper tones, amber primary |
+| `ios` | Apple iOS design language — system blue, rounded-full buttons, large touch targets |
+| `macos` | Apple macOS design language — compact, subdued borders, graphite accents |
+
+Combine presets (later ones override earlier ones):
+
+```tsx
+<OneCNProvider config={{ preset: ["modern", "corporate"] }}>
+```
+
+### Component Defaults
+
+Set default props for any component globally:
+
+```tsx
+<OneCNProvider
+  config={{
+    components: {
+      Button: {
+        defaultProps: { size: "lg", variant: "outline" },
+      },
+      Input: {
+        defaultProps: { className: "bg-muted" },
+      },
+    },
+  }}
+>
+```
+
+### Variant Overrides
+
+Override CVA variant classes globally without touching component code:
+
+```tsx
+<OneCNProvider
+  config={{
+    components: {
+      Button: {
+        variantOverrides: {
+          default: "shadow-lg hover:shadow-xl",
+          destructive: "ring-2 ring-red-300",
+        },
+      },
+    },
+  }}
+>
+```
+
+### Base ClassName
+
+Prepend classes to every instance of a component:
+
+```tsx
+<OneCNProvider
+  config={{
+    components: {
+      Card: {
+        baseClassName: "border-2",
+      },
+    },
+  }}
+>
+```
+
+### Runtime Theme Variables
+
+Override CSS custom properties at runtime without rebuilding Tailwind:
+
+```tsx
+<OneCNProvider
+  config={{
+    theme: {
+      primary: "221 83% 53%",
+      radius: "0.75rem",
+    },
+  }}
+>
+```
+
+All theme variables are optional. Only the ones you specify will be injected.
+
+### Full Config Example
+
+```tsx
+<OneCNProvider
+  config={{
+    preset: "modern",
+    theme: {
+      primary: "221 83% 53%",
+      radius: "0.75rem",
+    },
+    components: {
+      Button: {
+        defaultProps: { size: "lg" },
+        variantOverrides: {
+          default: "shadow-md",
+        },
+      },
+    },
+    toast: {
+      position: "top-right",
+      duration: 4000,
+    },
+  }}
+>
+```
+
+## Included Components (55)
 
 | Category | Components |
 |----------|-----------|
@@ -137,6 +290,7 @@ export function ProfileCard() {
 | **Data Display** | Avatar, Badge, Breadcrumb, Carousel, Chart, Pagination, Progress, Table |
 | **Feedback** | Alert, Sonner, Toast, Toaster |
 | **Navigation** | Accordion, Collapsible, Tabs |
+| **Helpers** | ConfirmDialog, CopyButton, EmptyState, FormGroup, PageHeader, SkeletonCard, StatusBadge, ThemeToggle |
 | **Utilities** | `cn` (from `tailwind-merge` + `clsx`) |
 
 ## Requirements

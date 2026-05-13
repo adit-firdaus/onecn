@@ -61,4 +61,5 @@ export * from "./hooks/use-previous";
 export * from "./hooks/use-theme";
 export * from "./hooks/use-toast";
 export * from "./lib/config";
+export * from "./lib/presets";
 export * from "./lib/utils";

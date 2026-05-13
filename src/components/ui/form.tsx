@@ -2,6 +2,7 @@ import type * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
 import { Controller, FormProvider, useFormContext } from "react-hook-form";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 import { Label } from "./label";
 
@@ -52,11 +53,16 @@ const FormItemContext = React.createContext<FormItemContextValue>({} as FormItem
 
 const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.HTMLAttributes<HTMLDivElement>>("FormItem");
+    const mergedClassName = cn("space-y-2", baseClassName, defaultProps?.className, className);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, ...restDefaults } = defaultProps ?? {};
     const id = React.useId();
 
     return (
       <FormItemContext.Provider value={{ id }}>
-        <div ref={ref} className={cn("space-y-2", className)} {...props} />
+        <div ref={ref} className={mergedClassName} {...restDefaults} {...props} />
       </FormItemContext.Provider>
     );
   }
@@ -67,13 +73,24 @@ const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
 >(({ className, ...props }, ref) => {
+  const { defaultProps, baseClassName } =
+    useComponentConfig<React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>>("FormLabel");
   const { error, formItemId } = useFormField();
+  const mergedClassName = cn(
+    error && "text-destructive",
+    baseClassName,
+    defaultProps?.className,
+    className
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, ...restDefaults } = defaultProps ?? {};
 
   return (
     <Label
       ref={ref}
-      className={cn(error && "text-destructive", className)}
+      className={mergedClassName}
       htmlFor={formItemId}
+      {...restDefaults}
       {...props}
     />
   );
@@ -83,8 +100,13 @@ FormLabel.displayName = "FormLabel";
 const FormControl = React.forwardRef<
   React.ElementRef<typeof Slot>,
   React.ComponentPropsWithoutRef<typeof Slot>
->(({ ...props }, ref) => {
+>(({ className, ...props }, ref) => {
+  const { defaultProps, baseClassName } =
+    useComponentConfig<React.ComponentPropsWithoutRef<typeof Slot>>("FormControl");
   const { error, formItemId, formDescriptionId, formMessageId } = useFormField();
+  const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, ...restDefaults } = defaultProps ?? {};
 
   return (
     <Slot
@@ -92,6 +114,8 @@ const FormControl = React.forwardRef<
       id={formItemId}
       aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
       aria-invalid={!!error}
+      className={mergedClassName}
+      {...restDefaults}
       {...props}
     />
   );
@@ -102,15 +126,20 @@ const FormDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
+  const { defaultProps, baseClassName } =
+    useComponentConfig<React.HTMLAttributes<HTMLParagraphElement>>("FormDescription");
   const { formDescriptionId } = useFormField();
+  const mergedClassName = cn(
+    "text-sm text-muted-foreground",
+    baseClassName,
+    defaultProps?.className,
+    className
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, ...restDefaults } = defaultProps ?? {};
 
   return (
-    <p
-      ref={ref}
-      id={formDescriptionId}
-      className={cn("text-sm text-muted-foreground", className)}
-      {...props}
-    />
+    <p ref={ref} id={formDescriptionId} className={mergedClassName} {...restDefaults} {...props} />
   );
 });
 FormDescription.displayName = "FormDescription";
@@ -119,20 +148,25 @@ const FormMessage = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
+  const { defaultProps, baseClassName } =
+    useComponentConfig<React.HTMLAttributes<HTMLParagraphElement>>("FormMessage");
   const { error, formMessageId } = useFormField();
   const body = error ? String(error?.message) : children;
+  const mergedClassName = cn(
+    "text-sm font-medium text-destructive",
+    baseClassName,
+    defaultProps?.className,
+    className
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, children: _ch, ...restDefaults } = defaultProps ?? {};
 
   if (!body) {
     return null;
   }
 
   return (
-    <p
-      ref={ref}
-      id={formMessageId}
-      className={cn("text-sm font-medium text-destructive", className)}
-      {...props}
-    >
+    <p ref={ref} id={formMessageId} className={mergedClassName} {...restDefaults} {...props}>
       {body}
     </p>
   );

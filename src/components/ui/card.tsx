@@ -1,23 +1,22 @@
 import * as React from "react";
-import { useConfig } from "../../lib/config";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => {
-    const config = useConfig();
-    const defaults = (config.components?.Card ?? {}) as Partial<
-      React.HTMLAttributes<HTMLDivElement>
-    >;
-    const mergedClassName = cn(defaults.className, className);
-
-    return (
-      <div
-        ref={ref}
-        className={cn("rounded-xl border bg-card text-card-foreground shadow", mergedClassName)}
-        {...defaults}
-        {...props}
-      />
+    const { defaultProps, baseClassName } =
+      useComponentConfig<React.HTMLAttributes<HTMLDivElement>>("Card");
+    const mergedClassName = cn(
+      "rounded-xl border bg-card text-card-foreground shadow",
+      baseClassName,
+      defaultProps?.className,
+      className
     );
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, ...restDefaults } = defaultProps ?? {};
+
+    return <div ref={ref} className={mergedClassName} {...restDefaults} {...props} />;
   }
 );
 Card.displayName = "Card";

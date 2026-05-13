@@ -1,6 +1,7 @@
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { Circle } from "lucide-react";
 import * as React from "react";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const RadioGroup = React.forwardRef<
@@ -15,15 +16,20 @@ const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>
 >(({ className, ...props }, ref) => {
+  const { defaultProps, baseClassName } =
+    useComponentConfig<React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>>(
+      "RadioGroupItem"
+    );
+  const mergedClassName = cn(
+    "aspect-square h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+    baseClassName,
+    defaultProps?.className,
+    className
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { className: _c, ...restDefaults } = defaultProps ?? {};
   return (
-    <RadioGroupPrimitive.Item
-      ref={ref}
-      className={cn(
-        "aspect-square h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      {...props}
-    >
+    <RadioGroupPrimitive.Item ref={ref} className={mergedClassName} {...restDefaults} {...props}>
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
         <Circle className="h-3.5 w-3.5 fill-primary" />
       </RadioGroupPrimitive.Indicator>

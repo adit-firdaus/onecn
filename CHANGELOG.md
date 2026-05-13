@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-05-14
+
+### Added
+- **Typed Configuration System** — `OneCNConfig` with `preset`, `theme`, `components`, and `toast` options.
+- **7 Built-in Presets** — `default`, `modern`, `brutalist`, `minimal`, `corporate`, `neon`, `retro`.
+- **2 New Presets** — `ios` (Apple iOS design language) and `macos` (Apple macOS design language).
+- **Preset Engine** — `applyPreset()` supports single preset or array merging (left-to-right).
+- **Runtime Theme Variables** — override CSS custom properties at runtime without rebuilding Tailwind.
+- **Component Defaults** — set `defaultProps` for any component globally via config.
+- **Variant Overrides** — override CVA variant classes globally via `variantOverrides`.
+- **Base ClassName** — prepend classes to every instance of a component via `baseClassName`.
+- **Config coverage on all 55 components** — every UI component and helper respects `useComponentConfig`.
+- **Missing CSS keyframes** — added `accordion-down`, `accordion-up`, and `caret-blink` keyframes.
+- **Custom animation easing** — added `ease-out-expo` and `ease-in-expo` curves; applied to all overlay open/close animations.
+- **Scoped theme injection** — `OneCNProvider` scopes CSS variables per instance (no more `:root` collisions).
+- **Storybook preset showcase** — new `Customization/Presets` stories and global preset toolbar switcher.
+
+### Changed
+- **BREAKING (config API):** `OneCNConfig.components` shape changed from `Record<string, Record<string, unknown>>` to typed `ComponentConfig` with `defaultProps`, `variantOverrides`, and `baseClassName`. Backward-compatible: old flat prop configs are auto-detected and wrapped.
+- Updated `AGENTS.md` with new component authoring patterns (config integration required).
+- Updated `README.md` with full customization guide and preset list.
+
 ## [0.5.0] - 2026-05-13
 
 ### Changed

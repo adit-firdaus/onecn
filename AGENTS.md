@@ -9,11 +9,11 @@ This file contains project-specific context for AI coding agents. Read this firs
 `@coolaf/onecn` is a React component library that bundles all [shadcn/ui](https://ui.shadcn.com) components into a single, easy-to-install npm package. Instead of installing shadcn components one-by-one via the CLI, consumers can install everything in one shot with `bun add @coolaf/onecn`.
 
 - **Package name:** `@coolaf/onecn`
-- **Version:** 0.1.0
+- **Version:** 0.6.0
 - **License:** MIT
 - **Author:** Adit Firdaus <aditfirdaus@gmail.com>
 - **Repository:** https://github.com/adit-firdaus/onecn
-- **Total components:** 47 shadcn/ui components + utilities
+- **Total components:** 55 (47 UI + 8 helpers + utilities)
 
 ## Technology Stack
 
@@ -84,7 +84,7 @@ Run `bun run lint:fix` before committing. Biome runs automatically on staged fil
 
 ## Component Patterns
 
-All components follow the standard shadcn/ui authoring conventions:
+All components follow the standard shadcn/ui authoring conventions, with **onecn customization support**:
 
 1. **Use `cn()` for class merging:**
    ```tsx
@@ -105,7 +105,65 @@ All components follow the standard shadcn/ui authoring conventions:
 
 4. **Support `asChild` via `@radix-ui/react-slot` where appropriate.**
 
-5. **Co-locate tests:** If you add or modify a component, place its test file right next to it (`ComponentName.test.tsx`).
+5. **Integrate with the config system.** Every styled component must read from `useComponentConfig` so users can customize defaults, variant classes, and base styling globally:
+
+   **For CVA components:**
+   ```tsx
+   import { useComponentConfig } from "../../lib/config";
+
+   const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+     ({ className, variant, size, ...props }, ref) => {
+       const { defaultProps, variantOverrides, baseClassName } = useComponentConfig<ButtonProps>("Button");
+
+       const mergedVariant = variant ?? defaultProps?.variant ?? "default";
+       const mergedSize = size ?? defaultProps?.size ?? "default";
+       const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+
+       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       const { className: _c, variant: _v, size: _s, ...restDefaults } = defaultProps ?? {};
+
+       return (
+         <button
+           className={cn(
+             buttonVariants({ variant: mergedVariant, size: mergedSize }),
+             variantOverrides?.[mergedVariant as string],
+             mergedClassName
+           )}
+           ref={ref}
+           {...restDefaults}
+           {...props}
+         />
+       );
+     }
+   );
+   ```
+
+   **For simple wrapper components:**
+   ```tsx
+   const Input = React.forwardRef<HTMLInputElement, InputProps>(
+     ({ className, ...props }, ref) => {
+       const { defaultProps, baseClassName } = useComponentConfig<InputProps>("Input");
+       const mergedClassName = cn(
+         "original-classes",
+         baseClassName,
+         defaultProps?.className,
+         className
+       );
+       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       const { className: _c, ...restDefaults } = defaultProps ?? {};
+       return <input className={mergedClassName} ref={ref} {...restDefaults} {...props} />;
+     }
+   );
+   ```
+
+   **Important notes for config integration:**
+   - Always destructure `className` from props and merge it separately with `cn()`.
+   - For CVA components, also destructure variant props and merge them with `defaultProps`.
+   - Strip destructured props from `defaultProps` before spreading (`restDefaults`) to avoid double-passing.
+   - Spread `restDefaults` **before** `{...props}` so instance props override config defaults.
+   - For components with complex conditional TypeScript types (e.g., `OTPInput`, `DayPicker`, `ToggleGroupPrimitive.Root`), do **not** spread `restDefaults` — only merge `className` and explicit props to avoid union-type errors.
+
+6. **Co-locate tests:** If you add or modify a component, place its test file right next to it (`ComponentName.test.tsx`).
 
 ## Testing Strategy
 

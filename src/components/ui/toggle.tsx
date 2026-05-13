@@ -1,5 +1,6 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
+import { useComponentConfig } from "../../lib/config";
 import { cn } from "../../lib/utils";
 
 const toggleVariants = cva(
@@ -24,12 +25,36 @@ const toggleVariants = cva(
   }
 );
 
-const Toggle = React.forwardRef<
-  React.ElementRef<"button">,
-  React.ComponentPropsWithoutRef<"button"> & VariantProps<typeof toggleVariants>
->(({ className, variant, size, ...props }, ref) => (
-  <button ref={ref} className={cn(toggleVariants({ variant, size, className }))} {...props} />
-));
+export interface ToggleProps
+  extends React.ComponentPropsWithoutRef<"button">,
+    VariantProps<typeof toggleVariants> {}
+
+const Toggle = React.forwardRef<React.ElementRef<"button">, ToggleProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    const { defaultProps, variantOverrides, baseClassName } =
+      useComponentConfig<ToggleProps>("Toggle");
+
+    const mergedVariant = variant ?? defaultProps?.variant ?? "default";
+    const mergedSize = size ?? defaultProps?.size ?? "default";
+    const mergedClassName = cn(baseClassName, defaultProps?.className, className);
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { className: _c, variant: _v, size: _s, ...restDefaults } = defaultProps ?? {};
+
+    return (
+      <button
+        ref={ref}
+        className={cn(
+          toggleVariants({ variant: mergedVariant, size: mergedSize }),
+          variantOverrides?.[mergedVariant as string],
+          mergedClassName
+        )}
+        {...restDefaults}
+        {...props}
+      />
+    );
+  }
+);
 
 Toggle.displayName = "Toggle";
 
