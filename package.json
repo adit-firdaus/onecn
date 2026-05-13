@@ -1,6 +1,6 @@
 {
-  "name": "@adit_firdaus/onecn",
-  "version": "0.3.0",
+  "name": "onecn",
+  "version": "0.4.0",
   "description": "All shadcn/ui components in one package. Easy install for new projects.",
   "type": "module",
   "main": "./dist/index.js",
@@ -357,10 +357,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aditfirdaus/onecn.git"
+    "url": "git+https://github.com/adit-firdaus/onecn.git"
   },
-  "homepage": "https://github.com/aditfirdaus/onecn#readme",
+  "homepage": "https://github.com/adit-firdaus/onecn#readme",
   "bugs": {
-    "url": "https://github.com/aditfirdaus/onecn/issues"
+    "url": "https://github.com/adit-firdaus/onecn/issues"
   }
 }

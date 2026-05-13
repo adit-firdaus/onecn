@@ -1,16 +1,16 @@
-# @adit_firdaus/onecn
+# onecn
 
 All [shadcn/ui](https://ui.shadcn.com) components packed into a single, easy-to-install package.
 
-[![CI](https://github.com/aditfirdaus/onecn/actions/workflows/ci.yml/badge.svg)](https://github.com/aditfirdaus/onecn/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/@adit_firdaus%2Fonecn.svg)](https://www.npmjs.com/package/@adit_firdaus/onecn)
+[![CI](https://github.com/adit-firdaus/onecn/actions/workflows/ci.yml/badge.svg)](https://github.com/adit-firdaus/onecn/actions/workflows/ci.yml)
+[![npm version](https://badge.fury.io/js/onecn.svg)](https://www.npmjs.com/package/onecn)
 
 ## Why?
 
-Instead of installing shadcn components one-by-one via the CLI, `@adit_firdaus/onecn` gives you everything in one shot:
+Instead of installing shadcn components one-by-one via the CLI, `onecn` gives you everything in one shot:
 
 ```bash
-bun add @adit_firdaus/onecn
+bun add onecn
 ```
 
 ## Installation
@@ -18,7 +18,7 @@ bun add @adit_firdaus/onecn
 ### 1. Install the package
 
 ```bash
-bun add @adit_firdaus/onecn
+bun add onecn
 ```
 
 ### 2. Import the styles
@@ -26,10 +26,10 @@ bun add @adit_firdaus/onecn
 Add this to your main CSS file (e.g. `globals.css`):
 
 ```css
-@import "@adit_firdaus/onecn/styles";
+@import "onecn/styles";
 ```
 
-Or copy the CSS variables from `node_modules/@adit_firdaus/onecn/dist/index.css` into your own stylesheet.
+Or copy the CSS variables from `node_modules/onecn/dist/index.css` into your own stylesheet.
 
 ### 3. Configure Tailwind
 
@@ -39,7 +39,7 @@ Make sure your `tailwind.config.js` includes the package in its content paths:
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@adit_firdaus/onecn/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/onecn/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -93,7 +93,7 @@ module.exports = {
 ### Barrel import (all components)
 
 ```tsx
-import { Button, Card, Dialog, Input, Label } from "@adit_firdaus/onecn";
+import { Button, Card, Dialog, Input, Label } from "onecn";
 ```
 
 ### Subpath import (tree-shaking friendly)
@@ -101,17 +101,17 @@ import { Button, Card, Dialog, Input, Label } from "@adit_firdaus/onecn";
 For better bundler performance and to avoid resolving heavy transitive dependencies when you only need one component:
 
 ```tsx
-import { Button } from "@adit_firdaus/onecn/button";
-import { Dialog } from "@adit_firdaus/onecn/dialog";
-import { cn } from "@adit_firdaus/onecn/utils";
-import { useToast } from "@adit_firdaus/onecn/use-toast";
+import { Button } from "onecn/button";
+import { Dialog } from "onecn/dialog";
+import { cn } from "onecn/utils";
+import { useToast } from "onecn/use-toast";
 ```
 
 ### Quick example
 
 ```tsx
-import { Button } from "@adit_firdaus/onecn/button";
-import { Card, CardHeader, CardTitle, CardContent } from "@adit_firdaus/onecn/card";
+import { Button } from "onecn/button";
+import { Card, CardHeader, CardTitle, CardContent } from "onecn/card";
 
 export function ProfileCard() {
   return (

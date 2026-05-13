@@ -1,4 +1,4 @@
-# Contributing to @adit_firdaus/onecn
+# Contributing to onecn
 
 Thanks for your interest in contributing!
 
@@ -6,7 +6,7 @@ Thanks for your interest in contributing!
 
 ```bash
 # Clone the repo
-git clone https://github.com/aditfirdaus/onecn.git
+git clone https://github.com/adit-firdaus/onecn.git
 cd onecn
 
 # Install dependencies (uses Bun)

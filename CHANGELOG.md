@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-05-13
+
+### Changed
+- **BREAKING (consumer-facing):** Renamed package from `@adit_firdaus/onecn` to unscoped `onecn`. Update imports from `@adit_firdaus/onecn` / `@adit_firdaus/onecn/<subpath>` to `onecn` / `onecn/<subpath>`.
+- Repository moved to `github.com/adit-firdaus/onecn` (was `aditfirdaus/onecn`); CI badge, repository, homepage, and bugs URLs updated accordingly.
+
+### Fixed
+- CI workflow now triggers on `v*` tag pushes (previously only `main` branch pushes), so the `publish` job actually runs on release tags.
+- npm publish auth now writes `~/.npmrc` instead of relying on `NPM_CONFIG_TOKEN`, which `bun publish` reads more reliably.
+
 ## [0.3.0] - 2026-05-10
 
 ### Added
@@ -24,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - 2026-05-10
 
 ### Added
-- Subpath exports for all 47 components (`@adit_firdaus/onecn/button`, etc.)
+- Subpath exports for all 47 components (`onecn/button`, etc.)
 - Test suite with `bun:test` covering `cn()`, `useToast` reducer, and `Button` component
 - Biome configuration for linting and formatting
 - GitHub Actions CI/CD workflow for testing and automated npm publishing
