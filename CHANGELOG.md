@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.0] - 2026-05-13
+## [0.4.1] - 2026-05-13
+
+### Fixed
+- npm publish step in CI now writes `.npmrc` to project root (instead of `~/.npmrc`) so `bun publish` picks up the auth token reliably. The 0.4.0 tag failed to publish with `error: missing authentication`; 0.4.1 is the first version actually pushed to the npm registry.
+- Explicitly set `registry=https://registry.npmjs.org/` in the generated `.npmrc`.
+- Added cleanup step to remove `.npmrc` post-publish, and added `.npmrc` to `.gitignore`.
+
+## [0.4.0] - 2026-05-13 [not published]
 
 ### Changed
 - **BREAKING (consumer-facing):** Renamed package from `@adit_firdaus/onecn` to unscoped `onecn`. Update imports from `@adit_firdaus/onecn` / `@adit_firdaus/onecn/<subpath>` to `onecn` / `onecn/<subpath>`.
