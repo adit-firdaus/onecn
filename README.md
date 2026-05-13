@@ -1,16 +1,16 @@
-# onecn
+# @coolaf/onecn
 
 All [shadcn/ui](https://ui.shadcn.com) components packed into a single, easy-to-install package.
 
 [![CI](https://github.com/adit-firdaus/onecn/actions/workflows/ci.yml/badge.svg)](https://github.com/adit-firdaus/onecn/actions/workflows/ci.yml)
-[![npm version](https://badge.fury.io/js/onecn.svg)](https://www.npmjs.com/package/onecn)
+[![npm version](https://badge.fury.io/js/@coolaf%2Fonecn.svg)](https://www.npmjs.com/package/@coolaf/onecn)
 
 ## Why?
 
-Instead of installing shadcn components one-by-one via the CLI, `onecn` gives you everything in one shot:
+Instead of installing shadcn components one-by-one via the CLI, `@coolaf/onecn` gives you everything in one shot:
 
 ```bash
-bun add onecn
+bun add @coolaf/onecn
 ```
 
 ## Installation
@@ -18,7 +18,7 @@ bun add onecn
 ### 1. Install the package
 
 ```bash
-bun add onecn
+bun add @coolaf/onecn
 ```
 
 ### 2. Import the styles
@@ -26,10 +26,10 @@ bun add onecn
 Add this to your main CSS file (e.g. `globals.css`):
 
 ```css
-@import "onecn/styles";
+@import "@coolaf/onecn/styles";
 ```
 
-Or copy the CSS variables from `node_modules/onecn/dist/index.css` into your own stylesheet.
+Or copy the CSS variables from `node_modules/@coolaf/onecn/dist/index.css` into your own stylesheet.
 
 ### 3. Configure Tailwind
 
@@ -39,7 +39,7 @@ Make sure your `tailwind.config.js` includes the package in its content paths:
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/onecn/dist/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@coolaf/onecn/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -93,7 +93,7 @@ module.exports = {
 ### Barrel import (all components)
 
 ```tsx
-import { Button, Card, Dialog, Input, Label } from "onecn";
+import { Button, Card, Dialog, Input, Label } from "@coolaf/onecn";
 ```
 
 ### Subpath import (tree-shaking friendly)
@@ -101,17 +101,17 @@ import { Button, Card, Dialog, Input, Label } from "onecn";
 For better bundler performance and to avoid resolving heavy transitive dependencies when you only need one component:
 
 ```tsx
-import { Button } from "onecn/button";
-import { Dialog } from "onecn/dialog";
-import { cn } from "onecn/utils";
-import { useToast } from "onecn/use-toast";
+import { Button } from "@coolaf/onecn/button";
+import { Dialog } from "@coolaf/onecn/dialog";
+import { cn } from "@coolaf/onecn/utils";
+import { useToast } from "@coolaf/onecn/use-toast";
 ```
 
 ### Quick example
 
 ```tsx
-import { Button } from "onecn/button";
-import { Card, CardHeader, CardTitle, CardContent } from "onecn/card";
+import { Button } from "@coolaf/onecn/button";
+import { Card, CardHeader, CardTitle, CardContent } from "@coolaf/onecn/card";
 
 export function ProfileCard() {
   return (

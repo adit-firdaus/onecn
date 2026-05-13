@@ -1,6 +1,6 @@
 {
-  "name": "onecn",
-  "version": "0.4.2",
+  "name": "@coolaf/onecn",
+  "version": "0.5.0",
   "description": "All shadcn/ui components in one package. Easy install for new projects.",
   "type": "module",
   "main": "./dist/index.js",

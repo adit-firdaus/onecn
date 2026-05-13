@@ -1,4 +1,4 @@
-# Contributing to onecn
+# Contributing to @coolaf/onecn
 
 Thanks for your interest in contributing!
 

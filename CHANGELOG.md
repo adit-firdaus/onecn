@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.4.2] - 2026-05-13
+## [0.5.0] - 2026-05-13
+
+### Changed
+- **BREAKING (consumer-facing):** Package renamed from `onecn` (unscoped, never published) to `@coolaf/onecn` (scoped under coolaf org). npm rejected the unscoped name `onecn` with `403 Package name too similar to existing packages once, open`, so the scope is required. Update imports from `onecn` / `onecn/<subpath>` to `@coolaf/onecn` / `@coolaf/onecn/<subpath>`.
+
+### Notes
+- This supersedes the rename in 0.4.0 from `@adit_firdaus/onecn` → `onecn`. The `onecn` unscoped path was abandoned because npm's similar-name protection blocks it.
+- 0.4.0, 0.4.1, 0.4.2 tags exist in git but none reached the npm registry.
+
+## [0.4.2] - 2026-05-13 [not published]
 
 ### Fixed
-- CI publish step now uses `npm publish` instead of `bun publish`. `bun publish` returned `404 Not Found: https://registry.npmjs.org/onecn` on first-time publish of a brand-new package name. `npm` handles the create-on-first-publish flow correctly. 0.4.1 was tagged but never reached the registry; 0.4.2 is the first version actually pushed.
+- CI publish step now uses `npm publish` instead of `bun publish`. `bun publish` returned `404 Not Found: https://registry.npmjs.org/onecn` on first-time publish of a brand-new package name. `npm` handles the create-on-first-publish flow correctly.
 
 ## [0.4.1] - 2026-05-13 [not published]
 
